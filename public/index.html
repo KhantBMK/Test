@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="./css/index.css">
+  </head>
+
+  <body>
+    <main>
+      <h1>Task Manager</h1>
+      <form method="post">
+        <input type="text" name="taskTitle" required>
+        <button type="submit">Create</button>
+      </form>
+
+      <ul class="taskBox">
+      </ul>
+    </main>
+
+    <script defer>
+      const form = document.querySelector("form");
+      const taskBox = document.querySelector(".taskBox");
+
+      // Listen to form events
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const input = form.querySelector("input[name='taskTitle']");
+        const taskTitle = input.value.trim();
+        if (!taskTitle) {
+          return;
+        }
+
+        const li = document.createElement("li");
+        li.innerHTML = `
+                      <span>${taskTitle}</span>
+                      <button class="deleteBtn">Delete</button>`;
+
+        li.querySelector(".deleteBtn").addEventListener("click", () => li.remove());
+        taskBox.appendChild(li);
+        input.value = '';
+      });
+    </script>
+
+  </body>
+</html>
